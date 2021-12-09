@@ -14,7 +14,7 @@ CLASSIFIERS = [
 ]
 
 install_requires = [
-    'suds==0.4'
+    'suds-py3==1.3.4.0'
 ]
 
 setup(
