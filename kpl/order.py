@@ -1,9 +1,9 @@
-# coding: utf-8
+
 from datetime import datetime
 import re
-import enums
-from utils import get_aware_text, smart_encode, parse_response_confirm_integration
-from base import ClientSoap
+from . enums import *
+from . utils import get_aware_text, smart_encode, parse_response_confirm_integration
+from . base import ClientSoap
 
 
 class OrderSoap(ClientSoap):
@@ -153,7 +153,7 @@ class OrderSoap(ClientSoap):
         # print exception_message
 
         success = False
-        if response_type in enums.TipoDeResultadoEnumSuccessList:
+        if response_type in TipoDeResultadoEnumSuccessList:
             success = True
 
         # Ótimo para debug, nao apagar
@@ -185,7 +185,7 @@ class OrderSoap(ClientSoap):
         po.CartaoTID = confirm_payment_order.CartaoTID
         po.CartaoCodigoRetorno = confirm_payment_order.CartaoCodigoRetorno
         po.CartaoMensagemRetorno = confirm_payment_order.CartaoMensagemRetorno
-        po.StatusPagamento = enums.StatusPagamentoEnum.speConfirmado
+        po.StatusPagamento = StatusPagamentoEnum.speConfirmado
 
         return po
 
@@ -206,7 +206,7 @@ class OrderSoap(ClientSoap):
         # print exception_message
 
         success = False
-        if response_type in enums.TipoDeResultadoEnumSuccessList:
+        if response_type in TipoDeResultadoEnumSuccessList:
             success = True
 
         return {
@@ -234,13 +234,13 @@ class OrderSoap(ClientSoap):
     def _parse_response_cancel_order(self, response):
 
         code = response.Resultado.Codigo
-        description = unicode(response.Resultado.Descricao)
-        response_type = unicode(response.Resultado.Tipo)
+        description = str(response.Resultado.Descricao)
+        response_type = str(response.Resultado.Tipo)
 
         exception_message = u''
-        if response_type not in enums.TipoDeResultadoEnumSuccessList:
+        if response_type not in TipoDeResultadoEnumSuccessList:
             exception_message = getattr(response.Resultado, 'ExceptionMessage', u'')
-            exception_message = unicode(exception_message)
+            exception_message = str(exception_message)
         return code, description, response_type, exception_message
 
     def cancel_order(self, cancel_order):
@@ -257,7 +257,7 @@ class OrderSoap(ClientSoap):
         # print exception_message
 
         success = False
-        if response_type in enums.TipoDeResultadoEnumSuccessList:
+        if response_type in TipoDeResultadoEnumSuccessList:
             success = True
 
         return {
@@ -280,7 +280,7 @@ class OrderSoap(ClientSoap):
         data = []
         success = True
 
-        if response_type in enums.TipoDeResultadoEnumSuccessList:
+        if response_type in TipoDeResultadoEnumSuccessList:
             data = callback(response)
         else:
             exception_message = response.ResultadoOperacao.ExceptionMessage

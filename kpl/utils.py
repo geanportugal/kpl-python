@@ -1,27 +1,31 @@
 # -*- coding: utf-8 -*-
-import enums
+from . enums import *
 
 
 def smart_decode(text):
-	if isinstance(text, str):
-		return text.decode('utf-8')
-	return text
+    if isinstance(text, bytes):
+        return text.decode('utf-8')
+    return text
 
 
 def smart_encode(text):
-	return text.encode('utf-8') if text else ""
+    if text and isinstance(text, bytes):
+        return text.encode('utf-8')
+    if text and not isinstance(text, bytes):
+        return text
+    return ""
 
 
 def parse_bool(text):
-	return text == "true"
+    return text == "true"
 
 
 def get_text_or_none(text):
-	return text or None
+    return text or None
 
 
 def get_aware_text(text):
-	return get_text_or_none(smart_decode(text))
+    return get_text_or_none(smart_decode(text))
 
 
 def parse_response_confirm_integration(response, protocol):
@@ -31,7 +35,7 @@ def parse_response_confirm_integration(response, protocol):
     exception_message = ''
     success = True
 
-    if response_type not in enums.TipoDeResultadoEnumSuccessList:
+    if response_type not in TipoDeResultadoEnumSuccessList:
         success = False
         exception_message = response.ExceptionMessage
 

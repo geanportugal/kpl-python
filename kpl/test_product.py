@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
-from product import ProductSoap
+from . product import ProductSoap
 
 
 class TestProduct(unittest.TestCase):
@@ -10,6 +10,6 @@ class TestProduct(unittest.TestCase):
 
     def test_get_list_products(self):
         r = self.ps.get_product_list()
-        print r
+        print(r)
         # rc = self.ps.confirm_integration_product(r['result']['data'][0]['protocol_product'])
         # print rc

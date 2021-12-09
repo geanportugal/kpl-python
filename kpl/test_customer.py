@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import unittest
-import enums
-from customer import CustomerSoap
-from entities.customer import Customer, Address
+from . enums import *
+from  . customer import CustomerSoap
+from . entities.customer import Customer, Address
 
 
 class TestCustomer(unittest.TestCase):
@@ -27,14 +27,14 @@ class TestCustomer(unittest.TestCase):
         c.EMail = u"ciclano2@gmail.com"
         c.CPFouCNPJ = u"194.712.270-34"
         c.Codigo = u"100000012"
-        c.TipoPessoa = enums.TipoPessoaEnum.tpeJuridica
+        c.TipoPessoa = TipoPessoaEnum.tpeJuridica
         c.Documento = "4198837484"
         c.InscricaoEstadual = "333333333"
         c.InscricaoMunicipal = "44444444"
         c.Classificacao = "CONSUMIDOR"
         c.Nome = "Joao Fulano"
         c.NomeReduzido = "Joao"
-        c.Sexo = enums.TipoSexoEnum.tseMasculino
+        c.Sexo = TipoSexoEnum.tseMasculino
         c.DataNascimento = "1984/12/03"
         c.Profissao = "Web Developer"
         c.Site = ""
@@ -129,5 +129,5 @@ class TestCustomer(unittest.TestCase):
 
     def test_create_customer(self):
         r = self.cs.add_customer(self.customer)
-        print r
+        print(r)
         # self.assertEqual(r["result"]["type"], enums.TipoEnum.tdreSucesso)

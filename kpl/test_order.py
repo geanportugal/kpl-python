@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import unittest
-import enums
+from . enums import *
 import datetime
-from order import OrderSoap
-from entities.order import Order, OrderItem, OrderPayment, CancelOrder
+from . order import OrderSoap
+from . entities.order import Order, OrderItem, OrderPayment, CancelOrder
 
 
 class TestOrder(unittest.TestCase):
@@ -57,7 +57,7 @@ class TestOrder(unittest.TestCase):
         # o.Anotacao3 = None
         # o.PedidoJaPago = False
         # o.DataDoPagamento = None
-        o.OptouNFPaulista = enums.OptouNFPaulistaEnum.tbneNao
+        o.OptouNFPaulista = OptouNFPaulistaEnum.tbneNao
         # o.CodigoCartaoPresente = None
         # o.MensagemCartaoPresente = None
         # o.AssinaturaCartaoPresente = None
@@ -120,7 +120,7 @@ class TestOrder(unittest.TestCase):
 
     def test_get_availables_status_orders(self):
         r = self.os.get_availables_status_orders()
-        print r
+        print(r)
         # print self.os.client.last_sent()
 
     # def test_set_order_cancel(self):

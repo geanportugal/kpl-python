@@ -1,8 +1,8 @@
 # coding: utf-8
 import re
-import enums
-from utils import get_aware_text
-from base import ClientSoap
+from . enums import *
+from . utils import get_aware_text
+from . base import ClientSoap
 
 
 class CustomerSoap(ClientSoap):
@@ -42,12 +42,12 @@ class CustomerSoap(ClientSoap):
         c = self.client.factory.create('DadosClientes')
         # TipoPessoaEnum = self.client.factory.create('TipoPessoaEnum')
         c.TipoPessoa = customer.TipoPessoa
-        if customer.TipoPessoa == enums.TipoPessoaEnum.tpeFisica:
+        if customer.TipoPessoa == TipoPessoaEnum.tpeFisica:
             c.Sexo = customer.Sexo
             if customer.DataNascimento:
                 c.DataNascimento = customer.DataNascimento.strftime('%d%m%Y')
         else:
-            c.Sexo = enums.TipoSexoEnum.tseEmpresa
+            c.Sexo = TipoSexoEnum.tseEmpresa
 
         c.EMail = get_aware_text(customer.EMail)
         c.CPFouCNPJ = re.sub(r'[^\d]+', '', get_aware_text(customer.CPFouCNPJ))
@@ -81,7 +81,7 @@ class CustomerSoap(ClientSoap):
         # print "exception_message: ", exception_message
 
         success = False
-        if response_type in enums.TipoDeResultadoEnumSuccessList:
+        if response_type in TipoDeResultadoEnumSuccessList:
             success = True
 
         return {

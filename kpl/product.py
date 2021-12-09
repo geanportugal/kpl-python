@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # import re
-import enums
-from utils import smart_encode, parse_bool, parse_response_confirm_integration
-from base import ClientSoap
+from . enums import *
+from . utils import smart_encode, parse_bool, parse_response_confirm_integration
+from . base import ClientSoap
 
 
 class ProductSoap(ClientSoap):
@@ -15,7 +15,7 @@ class ProductSoap(ClientSoap):
         data = []
         success = True
 
-        if response_type in enums.TipoDeResultadoEnumSuccessList:
+        if response_type in TipoDeResultadoEnumSuccessList:
             data = callback(response)
         else:
             exception_message = response.ResultadoOperacao.ExceptionMessage

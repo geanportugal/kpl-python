@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-import urllib2
-import enums
+import urllib.error
+import urllib.request
+from .enums import *
 from suds.client import Client
 from suds.transport.https import HttpAuthenticated
 from suds.transport import TransportError
@@ -18,10 +19,10 @@ class HttpHeaderModify(HttpAuthenticated):
     def open(self, request):
         try:
             url = request.url
-            u2request = urllib2.Request(url, headers={'User-Agent': 'Mozilla'})
+            u2request = urllib.request.Request(url, headers={'User-Agent': 'Mozilla'})
             self.proxy = self.options.proxy
             return self.u2open(u2request)
-        except urllib2.HTTPError, e:
+        except urllib.error.HTTPError as e:
             raise TransportError(str(e), e.code, e.fp)
 
 
@@ -52,11 +53,11 @@ class ClientSoap(object):
 
     def parse_response(self, response):
         code = response.ResultadoOperacao.Codigo
-        description = unicode(response.ResultadoOperacao.Descricao)
-        response_type = unicode(response.ResultadoOperacao.Tipo)
+        description = str(response.ResultadoOperacao.Descricao)
+        response_type = str(response.ResultadoOperacao.Tipo)
 
         exception_message = u''
-        if response_type not in enums.TipoDeResultadoEnumSuccessList:
+        if response_type not in TipoDeResultadoEnumSuccessList:
             exception_message = getattr(response.ResultadoOperacao, 'ExceptionMessage', u'')
-            exception_message = unicode(exception_message)
+            exception_message = str(exception_message)
         return code, description, response_type, exception_message
